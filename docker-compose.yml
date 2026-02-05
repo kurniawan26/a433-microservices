@@ -1,0 +1,31 @@
+# Menggunakan versi 2 dari docker-compose
+version: "2"
+
+# Membuat layanan item-app dan item-db
+services:
+  # Layanan item-app
+  item-app:
+    # Menggunakan image item-app:latest
+    image: ghcr.io/kurniawan26/item-app:latest # Mengambil image dari GitHub Packages (Saran ke-4)
+    # Mengekspos port 8080
+    ports:
+      - "80:8080"
+    depends_on:
+      - item-db
+      # Melakukan kebijakan restart
+    restart: always
+
+  # Layanan item-db
+  item-db:
+    # Menggunakan image mongo:3
+    image: mongo:3
+    # Menggunakan volume app-db
+    volumes:
+      - app-db:/data/db
+    ports:
+      # Mengekspos port 27017
+      - "27017:27017"
+    restart: always
+
+volumes:
+  app-db:
