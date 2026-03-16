@@ -1,8 +1,8 @@
 FROM node:14.21-alpine as builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm config set registry https://registry.npmmirror.com
-RUN npm install
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm install
 COPY . .
 ARG VUE_APP_BACKEND
 ENV VUE_APP_BACKEND=$VUE_APP_BACKEND
