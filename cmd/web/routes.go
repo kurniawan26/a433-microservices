@@ -17,6 +17,7 @@ func (app *application) routes() http.Handler {
 	mux.Use(middleware.Logger)
 	mux.Use(middleware.RealIP)
 	mux.Use(middleware.Timeout(60 * time.Second))
+	mux.Use(prometheusMiddleware)
 	mux.Use(cors.Handler(cors.Options{
 		AllowedOrigins: []string{"*"},
 		AllowedMethods: []string{"GET", "POST", "DELETE"},
